@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Register Client</title>
+    <link th:rel="stylesheet" th:href="@{assets/bootstrap/css/bootstrap.min.css}">
+    <link th:rel="stylesheet" th:href="@{assets/fonts/font-awesome.min.css}">
+    <link th:rel="stylesheet" th:href="@{assets/css/Registration-Form-with-Photo.css}">
+    <link th:rel="stylesheet" th:href="@{assets/css/styles.css}">
+</head>
+
+<body style="min-height: 100%;height: 100%;">
+    <section class="register-photo" style="height: 100%;">
+        <div class="form-container">
+            <form action="/client" method="post" th:object="${cliente}">
+                <h2 class="text-center"><strong>Create</strong> an client.</h2>
+                <div class="mb-3"><input class="form-control" type="text" placeholder="Name" name="nome" th:field="*{nome}">
+                <span th:errors="*{nome}"></span>
+                </div>
+                <div class="mb-3"><input class="form-control" type="date" name="dataNascimento" th:field="*{dataNascimento}">
+                <span th:errors="*{dataNascimento}"></span>
+                </div>
+                <div class="mb-3"><input class="form-control" type="email" name="email" placeholder="Email" name="email" th:field="*{email}">
+                <span th:errors="*{email}"></span>
+                </div>
+                <div class="mb-3"><input class="form-control" type="tel" placeholder="Phone" name="telefone" th:field="*{telefone}">
+                <span th:errors="*{telefone}"></span>
+                </div>
+                <div class="mb-3"><button class="btn btn-primary d-block w-100" type="submit">Sign Up</button></div>
+            </form>
+            <div>
+                <div class="table-responsive">
+                    <table class="table table-hover table-borderless">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Birth date<br></th>
+                                <th>Email<br></th>
+                                <th>Phone<br></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="cliente : ${clientes}">
+                                <td th:text="${cliente.nome}"></td>
+                                <td th:text="${cliente.dataNascimento}"></td>
+                                <td th:text="${cliente.email}"></td>
+                                <td th:text="${cliente.telefone}"></td>
+                                <td><a href="/update-client/${idCliente}"><i class="fa fa-pencil-square-o"></i></a><a href="#"><i class="fa fa-trash-o" style="margin-left: 10px;"></i></a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+</body>
+
+</html>
