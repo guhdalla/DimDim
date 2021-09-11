@@ -1,6 +1,8 @@
 package com.project.DimDim.controller;
 
-import java.util.List; 
+import java.util.List;
+import java.util.Optional;
+
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,7 +24,7 @@ public class EnderecoController {
 	@Autowired
 	private ClienteRepository repositoryCliente;
 	
-	@PostMapping("/adderess/{id}")
+	@PostMapping("/address/{id}")
 	public String save(@PathVariable Long id, @Valid Endereco endereco, BindingResult result) {
 		if(result.hasErrors()) return "redirect:/update-client/" + id;
 		endereco.setCliente(repositoryCliente.findById(id).get());
@@ -30,20 +32,32 @@ public class EnderecoController {
 		return "redirect:/update-client/" + id;
 	}
 
-	@DeleteMapping("/adderess/delete/{id}")
-	public ModelAndView delete(@PathVariable Long id) {
-		repository.deleteById(id);
-		return new ModelAndView("update-client");
+	@RequestMapping("/address/delete/{id}")
+	public String delete(@PathVariable Long id) {
+		Endereco endereco = repository.findById(id).get();
+		Cliente cliente = endereco.getCliente();
+		cliente.getEnderecos().remove(endereco);
+		repository.delete(endereco);
+		return "redirect:/update-client/" + cliente.getIdCliente();
 	}
 
-	@PutMapping("/adderess/update/{id}")
-	public ModelAndView atualizarDados(@PathVariable Long id, @Valid Endereco endereco) {
+	@PostMapping("/address/update/{id}")
+	public String atualizarDados(@PathVariable Long id, @Valid Endereco endereco, BindingResult result) {
+		if(result.hasErrors()) return "redirect:/update-address/" + id;
 		return repository.findById(id).map(x -> {
 			x.setRua(endereco.getRua());
 			x.setEstado(endereco.getEstado());
 			x.setNumero(endereco.getNumero());
 			repository.save(x);
-			return new ModelAndView("update-client");
-		}).orElse(new ModelAndView("update-client"));
+			return"redirect:/update-client/" + x.getCliente().getIdCliente();
+		}).orElse("redirect:/update-address/" + id);
+	}
+	
+	@GetMapping("/update-address/{id}")
+	public ModelAndView index(@PathVariable Long id, Endereco endereco) {
+		ModelAndView modelAndView = new ModelAndView("update-address");
+		endereco = repository.findById(id).get();
+		modelAndView.addObject("address", endereco);
+		return modelAndView;
 	}
 }

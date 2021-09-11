@@ -30,7 +30,7 @@
                 </div>
                 <div class="mb-3"><button class="btn btn-primary d-block w-100" type="submit">Sign Up</button></div>
             </form>
-            <form th:action="@{'/adderess/' + ${idCliente}}" method="POST" th:object="${endereco}">
+            <form th:action="@{'/address/' + ${idCliente}}" method="POST" th:object="${endereco}">
                 <h2 class="text-center"><strong>Add&nbsp;</strong>an&nbsp;Address.</h2>
                 <div class="mb-3"><input class="form-control" type="text" placeholder="Street" name="rua" th:field="*{rua}">
                 <span th:errors="*{rua}"></span>
@@ -47,8 +47,9 @@
         <div>
             <div style="margin-top: 50px;text-align: center;">
                 <h5>Address List<br></h5>
-                <div th:each="endereco : ${address}">
-                    <p th:text="${endereco.idEndereco} + '. ' + ${endereco.rua} + ', ' + ${endereco.numero} + ' - ' + ${endereco.estado}"><a href="#" style="margin-left: 10px;"><i class="fa fa-pencil-square-o"></i></a><a href="#" style="margin-left: 10px;"><i class="fa fa-trash-o"></i></a></p>
+                <div class="d-flex justify-content-xxl-center" th:each="endereco : ${address}">
+                    <p th:text="${endereco.idEndereco} + '. ' + ${endereco.rua} + ', ' + ${endereco.numero} + ' - ' + ${endereco.estado}"></p>
+                    <a th:href="@{'/update-address/' + ${endereco.idEndereco}}" style="margin-left: 10px;"><i class="fa fa-pencil-square-o"></i></a><a th:href="@{'/address/delete/' + ${endereco.idEndereco}}" style="margin-left: 10px;"><i class="fa fa-trash-o"></i></a>
                 </div>
             </div>
         </div>

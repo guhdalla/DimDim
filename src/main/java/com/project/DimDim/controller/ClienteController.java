@@ -24,7 +24,7 @@ public class ClienteController {
 	@Autowired
 	private ClienteRepository repository;
 
-	@GetMapping("/register-client")
+	@GetMapping(value = {"/register-client", "/"})
 	public ModelAndView index(Cliente cliente) {
 		ModelAndView modelAndView = new ModelAndView("register-client");
 		List<Cliente> clientes = repository.findAll();
