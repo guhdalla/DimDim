@@ -23,12 +23,11 @@ public class Endereco {
 	private String rua;
 	
 	@Column(name="nr_numero")
-	@NotNull
-	private int numero;
+	@NotBlank
+	private String numero;
 	
 	@Column(name="nm_estado")
-	@NotNull
-    @Size(min = 2)
+	@NotBlank
 	private String estado;
 	
 	@ManyToOne

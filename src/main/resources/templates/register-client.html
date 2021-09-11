@@ -19,10 +19,10 @@
                 <div class="mb-3"><input class="form-control" type="text" placeholder="Name" name="nome" th:field="*{nome}">
                 <span th:errors="*{nome}"></span>
                 </div>
-                <div class="mb-3"><input class="form-control" type="date" name="dataNascimento" th:field="*{dataNascimento}">
+                <div class="mb-3"><input class="form-control" type="text" placeholder="Birth date" name="dataNascimento" th:field="*{dataNascimento}">
                 <span th:errors="*{dataNascimento}"></span>
                 </div>
-                <div class="mb-3"><input class="form-control" type="email" name="email" placeholder="Email" name="email" th:field="*{email}">
+                <div class="mb-3"><input class="form-control" type="email" placeholder="Email" name="email" th:field="*{email}">
                 <span th:errors="*{email}"></span>
                 </div>
                 <div class="mb-3"><input class="form-control" type="tel" placeholder="Phone" name="telefone" th:field="*{telefone}">
@@ -47,7 +47,9 @@
                                 <td th:text="${cliente.dataNascimento}"></td>
                                 <td th:text="${cliente.email}"></td>
                                 <td th:text="${cliente.telefone}"></td>
-                                <td><a href="/update-client/${idCliente}"><i class="fa fa-pencil-square-o"></i></a><a href="#"><i class="fa fa-trash-o" style="margin-left: 10px;"></i></a></td>
+                                <td>
+                                <a th:href="@{'/update-client/' + ${cliente.idCliente}}"><i class="fa fa-pencil-square-o"></i></a>
+                                <a th:href="@{'/client/delete/' + ${cliente.idCliente}}"><i class="fa fa-trash-o" style="margin-left: 10px;"></i></a></td>
                             </tr>
                         </tbody>
                     </table>
@@ -55,7 +57,7 @@
             </div>
         </div>
     </section>
-    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="@{assets/bootstrap/js/bootstrap.min.js}"></script>
 </body>
 
 </html>

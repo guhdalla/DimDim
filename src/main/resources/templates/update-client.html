@@ -1,45 +1,59 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://thymeleaf.org">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>dimdim</title>
-    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/fonts/font-awesome.min.css">
-    <link rel="stylesheet" href="assets/css/Registration-Form-with-Photo.css">
-    <link rel="stylesheet" href="assets/css/styles.css">
+    <title>Register Client</title>
+    <link th:rel="stylesheet" th:href="@{/assets/bootstrap/css/bootstrap.min.css}">
+    <link th:rel="stylesheet" th:href="@{/assets/fonts/font-awesome.min.css}">
+    <link th:rel="stylesheet" th:href="@{/assets/css/Registration-Form-with-Photo.css}">
+    <link th:rel="stylesheet" th:href="@{/assets/css/styles.css}">
 </head>
 
 <body style="min-height: 100%;height: 100%;">
     <section class="register-photo" style="height: 100%;">
         <div class="form-container">
-            <form method="post">
+            <form th:action="@{'/client/update/' + ${idCliente}}" method="POST" th:object="${cliente}">
                 <h2 class="text-center"><strong>Update&nbsp;</strong>an client.</h2>
-                <div class="mb-3"><input class="form-control" type="text" placeholder="Name"></div>
-                <div class="mb-3"><input class="form-control" type="date"></div>
-                <div class="mb-3"><input class="form-control" type="email" name="email" placeholder="Email"></div>
-                <div class="mb-3"><input class="form-control" type="tel" placeholder="Phone"></div>
-                <div class="mb-3"><button class="btn btn-primary d-block w-100" type="submit">Update</button></div>
+                 <div class="mb-3"><input class="form-control" type="text" placeholder="Name" name="nome" th:field="*{nome}">
+                <span th:errors="*{nome}"></span>
+                </div>
+                <div class="mb-3"><input class="form-control" type="text" placeholder="Birth date" name="dataNascimento" th:field="*{dataNascimento}">
+                <span th:errors="*{dataNascimento}"></span>
+                </div>
+                <div class="mb-3"><input class="form-control" type="email" placeholder="Email" name="email" th:field="*{email}">
+                <span th:errors="*{email}"></span>
+                </div>
+                <div class="mb-3"><input class="form-control" type="tel" placeholder="Phone" name="telefone" th:field="*{telefone}">
+                <span th:errors="*{telefone}"></span>
+                </div>
+                <div class="mb-3"><button class="btn btn-primary d-block w-100" type="submit">Sign Up</button></div>
             </form>
-            <form method="post">
+            <form th:action="@{'/adderess/' + ${idCliente}}" method="POST" th:object="${endereco}">
                 <h2 class="text-center"><strong>Add&nbsp;</strong>an&nbsp;Address.</h2>
-                <div class="mb-3"><input class="form-control" type="text" placeholder="Street"></div>
-                <div class="mb-3"><input class="form-control" type="number" placeholder="Number"></div>
-                <div class="mb-3"><input class="form-control" type="text" placeholder="State"></div>
+                <div class="mb-3"><input class="form-control" type="text" placeholder="Street" name="rua" th:field="*{rua}">
+                <span th:errors="*{rua}"></span>
+                </div>
+                <div class="mb-3"><input class="form-control" type="text" placeholder="Number" name="numero" th:field="*{numero}">
+                <span th:errors="*{numero}"></span>
+                </div>
+                <div class="mb-3"><input class="form-control" type="text" placeholder="State" name="estado" th:field="*{estado}">
+                <span th:errors="*{estado}"></span>
+                </div>
                 <div class="mb-3"><button class="btn btn-primary d-block w-100" type="submit">Add</button></div>
             </form>
         </div>
         <div>
             <div style="margin-top: 50px;text-align: center;">
                 <h5>Address List<br></h5>
-                <div>
-                    <p>&nbsp;1. Rua Jose Ricardo da Costa, 72 - Sao Paulo<a href="#" style="margin-left: 10px;"><i class="fa fa-pencil-square-o"></i></a><a href="#" style="margin-left: 10px;"><i class="fa fa-trash-o"></i></a></p>
+                <div th:each="endereco : ${address}">
+                    <p th:text="${endereco.idEndereco} + '. ' + ${endereco.rua} + ', ' + ${endereco.numero} + ' - ' + ${endereco.estado}"><a href="#" style="margin-left: 10px;"><i class="fa fa-pencil-square-o"></i></a><a href="#" style="margin-left: 10px;"><i class="fa fa-trash-o"></i></a></p>
                 </div>
             </div>
         </div>
     </section>
-    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script th:src="@{assets/bootstrap/js/bootstrap.min.js}"></script>
 </body>
 
 </html>

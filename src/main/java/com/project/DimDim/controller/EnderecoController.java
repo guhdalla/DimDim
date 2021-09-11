@@ -8,7 +8,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.project.DimDim.model.Cliente;
 import com.project.DimDim.model.Endereco;
+import com.project.DimDim.repository.ClienteRepository;
 import com.project.DimDim.repository.EnderecoRepository;
 
 @Controller
@@ -16,28 +18,25 @@ public class EnderecoController {
 
 	@Autowired
 	private EnderecoRepository repository;
-
-	@GetMapping("/update-client")
-	public ModelAndView index() {
-		ModelAndView modelAndView = new ModelAndView("update-client");
-		List<Endereco> enderecos = repository.findAll();
-		modelAndView.addObject("address", enderecos);
-		return modelAndView;
-	}
 	
-	@PostMapping("/adderess")
-	public ModelAndView save(@Valid Endereco endereco, BindingResult result) {
+	@Autowired
+	private ClienteRepository repositoryCliente;
+	
+	@PostMapping("/adderess/{id}")
+	public String save(@PathVariable Long id, @Valid Endereco endereco, BindingResult result) {
+		if(result.hasErrors()) return "redirect:/update-client/" + id;
+		endereco.setCliente(repositoryCliente.findById(id).get());
 		repository.save(endereco);
-		return new ModelAndView("update-client");
+		return "redirect:/update-client/" + id;
 	}
 
-	@DeleteMapping("/adderess/{id}")
+	@DeleteMapping("/adderess/delete/{id}")
 	public ModelAndView delete(@PathVariable Long id) {
 		repository.deleteById(id);
 		return new ModelAndView("update-client");
 	}
 
-	@PutMapping("/adderess/{id}")
+	@PutMapping("/adderess/update/{id}")
 	public ModelAndView atualizarDados(@PathVariable Long id, @Valid Endereco endereco) {
 		return repository.findById(id).map(x -> {
 			x.setRua(endereco.getRua());

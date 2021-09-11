@@ -23,17 +23,19 @@ public class Cliente {
 		private Long idCliente;
 		
 		@Column(name="nm_cliente")
+		@NotBlank
 		private String nome;
 		
-		@JsonFormat(pattern = "dd/MM/yyyy")
-		@Temporal(TemporalType.DATE)
 		@Column(name="dt_nascimento")
-		private Date dataNascimento;
+		@NotBlank
+		private String dataNascimento;
 		
 		@Column(name = "ds_email")
+		@NotBlank
 		private String email;
 		
 		@Column(name="nr_telefone")
+		@NotBlank
 		private String telefone;
 		
 		@OneToMany(mappedBy = "cliente", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
