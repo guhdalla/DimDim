@@ -15,7 +15,7 @@
     <section class="register-photo" style="height: 100%;">
         <div class="form-container">
             <form th:action="@{'/address/update/' + ${address.idEndereco}}" method="POST" th:object="${endereco}">
-                <h2 class="text-center"><strong>Add&nbsp;</strong>an&nbsp;Address.</h2>
+                <h2 class="text-center"><strong>Update&nbsp;</strong>an&nbsp;Address.</h2>
                 <div class="mb-3"><input class="form-control" type="text" placeholder="Street" name="rua" th:field="*{rua}">
                 <span th:errors="*{rua}"></span>
                 </div>
@@ -25,7 +25,7 @@
                 <div class="mb-3"><input class="form-control" type="text" placeholder="State" name="estado" th:field="*{estado}">
                 <span th:errors="*{estado}"></span>
                 </div>
-                <div class="mb-3"><button class="btn btn-primary d-block w-100" type="submit">Add</button></div>
+                <div class="mb-3"><button class="btn btn-primary d-block w-100" type="submit">Update</button></div>
             </form>
         </div>
     </section>
