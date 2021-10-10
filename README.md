@@ -31,7 +31,7 @@ pipeline {
             post {
                 success {
                     archiveArtifacts 'target/*.jar'
-                    sh 'java -jar /var/lib/jenkins/workspace/DimDimPipeline/target/DimDim-0.0.1-SNAPSHOT.jar'
+                    sh 'java -jar /var/lib/jenkins/workspace/PipelineDimDim/target/DimDim-0.0.1-SNAPSHOT.jar'
                 }
             }
         }
