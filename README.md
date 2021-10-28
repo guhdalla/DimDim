@@ -19,7 +19,7 @@ pipeline {
         }
         stage('Deliver') { 
             steps {
-                sh '/tmp/dimdimlog/script.sh'
+                sh '/home/devops/DimDim/start.sh'
             }
         }
     }
